@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PakSimInfo - SIM Owner & CNIC Details Pakistan</title>
+    <meta name="description" content="Verify SIM owner details and CNIC information in Pakistan securely and instantly.">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <i class="fas fa-shield-alt"></i> PakSim<span>Info</span>
+                </a>
+                
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="#sim-check" class="nav-link">SIM Check</a></li>
+                    <li><a href="#cnic-check" class="nav-link">CNIC Verify</a></li>
+                    <li><a href="#features" class="nav-link">Features</a></li>
+                    <li><a href="#faq" class="nav-link">FAQ</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+
+                <div class="nav-actions">
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle Dark Mode">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <a href="#sim-check" class="btn btn-primary mobile-only">Check Now</a>
+                    <div class="hamburger" id="hamburger">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="fade-in">Verify SIM & CNIC Details <br> <span class="highlight">Instantly & Securely</span></h1>
+                <p class="fade-in delay-1">Pakistan's most trusted platform for verifying mobile number ownership and CNIC information. Fast, accurate, and confidential.</p>
+                <div class="hero-buttons fade-in delay-2">
+                    <a href="#sim-check" class="btn btn-primary">Check SIM Owner</a>
+                    <a href="#cnic-check" class="btn btn-outline">Verify CNIC</a>
+                </div>
+                
+                <div class="stats fade-in delay-3">
+                    <div class="stat-item">
+                        <h3 data-target="150000">0</h3>
+                        <p>Queries Today</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 data-target="99">0</h3>
+                        <p>% Accuracy</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 data-target="24">0</h3>
+                        <p>/7 Support</p>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image fade-in delay-2">
+                <img src="https://cdni.iconscout.com/illustration/premium/thumb/sim-card-illustration-download-in-svg-png-gif-file-formats--mobile-phone-chip-technology-pack-business-illustrations-4439689.png?f=webp" alt="SIM Verification Illustration">
+            </div>
+        </div>
+    </section>
+
+    <!-- SIM Checker Section -->
+    <section id="sim-check" class="section bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2>Check SIM Owner Details</h2>
+                <p>Enter the mobile number to find the owner's name and network provider.</p>
+            </div>
+
+            <div class="checker-card">
+                <div class="card-header">
+                    <div class="tab-btn active" data-tab="sim">SIM Info</div>
+                    <div class="tab-btn" data-tab="cnic">CNIC Info</div>
+                </div>
+                
+                <form id="simForm" class="checker-form">
+                    <div class="input-group">
+                        <label for="phoneNumber">Mobile Number</label>
+                        <div class="input-wrapper">
+                            <span class="prefix">+92</span>
+                            <input type="tel" id="phoneNumber" placeholder="300 1234567" maxlength="10" required>
+                        </div>
+                        <small class="error-msg" id="phoneError"></small>
+                    </div>
+
+                    <div class="captcha-box">
+                        <div class="captcha-question" id="captchaQuestion"></div>
+                        <input type="text" id="captchaInput" placeholder="Enter result" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fas fa-search"></i> Search Details
+                    </button>
+                </form>
+
+                <!-- Loading State -->
+                <div class="loading-state" id="loadingState" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Verifying with PTA database...</p>
+                </div>
+
+                <!-- Result State -->
+                <div class="result-state" id="resultState" style="display: none;">
+                    <div class="result-header">
+                        <i class="fas fa-check-circle"></i> Record Found
+                    </div>
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <span class="label">Owner Name</span>
+                            <span class="value" id="resName">Muhammad Ahmed</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Mobile Number</span>
+                            <span class="value" id="resNumber">0300 1234567</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Network Operator</span>
+                            <span class="value" id="resNetwork">Jazz</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Location</span>
+                            <span class="value" id="resLocation">Punjab, Pakistan</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Status</span>
+                            <span class="value status-active">Active</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="label">Verification Date</span>
+                            <span class="value" id="resDate">Oct 24, 2023</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline btn-sm" onclick="window.print()">
+                        <i class="fas fa-print"></i> Print Report
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CNIC Checker Section -->
+    <section id="cnic-check" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>CNIC Verification System</h2>
+                <p>Verify identity cards issued by NADRA securely.</p>
+            </div>
+
+            <div class="checker-card">
+                <form id="cnicForm" class="checker-form">
+                    <div class="input-group">
+                        <label for="cnicNumber">CNIC Number (Without Dashes)</label>
+                        <input type="text" id="cnicNumber" placeholder="4210112345678" maxlength="13" required>
+                        <small class="help-text">Format: 42101-1234567-1</small>
+                        <small class="error-msg" id="cnicError"></small>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="terms" required>
+                        <label for="terms">I agree that this information will be used for lawful purposes only.</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fas fa-id-card"></i> Verify CNIC
+                    </button>
+                </form>
+
+                <!-- CNIC Result -->
+                <div class="result-state" id="cnicResultState" style="display: none;">
+                    <div class="cnic-card-display">
+                        <div class="cnic-header">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Emblem_of_Pakistan.svg/1200px-Emblem_of_Pakistan.svg.png" alt="Pakistan Emblem" class="emblem">
+                            <div class="cnic-title">
+                                <h4>Islamic Republic of Pakistan</h4>
+                                <p>National Identity Card</p>
+                            </div>
+                        </div>
+                        <div class="cnic-body">
+                            <div class="cnic-row">
+                                <span>Name:</span>
+                                <strong id="cnicResName">Ali Khan</strong>
+                            </div>
+                            <div class="cnic-row">
+                                <span>Father Name:</span>
+                                <strong id="cnicResFather">Usman Khan</strong>
+                            </div>
+                            <div class="cnic-row">
+                                <span>Date of Birth:</span>
+                                <strong id="cnicResDob">01-01-1990</strong>
+                            </div>
+                            <div class="cnic-row">
+                                <span>Address:</span>
+                                <strong id="cnicResAddress">House 12, Street 5, Islamabad</strong>
+                            </div>
+                            <div class="cnic-row">
+                                <span>Issue Date:</span>
+                                <strong>15-03-2018</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Choose PakSimInfo?</h2>
+                <p>We provide the most reliable verification services in Pakistan.</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="icon-box">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Instant Results</h3>
+                    <p>Get verified details within seconds through our automated system.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>100% Secure</h3>
+                    <p>Your data is encrypted and we do not store any search history.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile Friendly</h3>
+                    <p>Optimized for all smartphones and tablets across Pakistan.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Live Database</h3>
+                    <p>Connected directly to updated telecom and NADRA records.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Is this service free?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, basic SIM owner verification is completely free for all users in Pakistan.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How accurate is the information?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We fetch data from official telecom databases, ensuring 99% accuracy on active numbers.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Can I check Telenor and Zong numbers?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely. We support Jazz, Telenor, Zong, Ufone, and SCO networks.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Is my search private?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we do not log your IP address or the numbers you search for.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2>Contact Us</h2>
+                <p>Have issues or suggestions? Reach out to us.</p>
+            </div>
+            
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>support@paksiminfo.pk</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+92 300 1234567</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Location</h4>
+                            <p>Islamabad, Pakistan</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <form class="contact-form">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <textarea rows="5" placeholder="Message" required></textarea>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>PakSim<span>Info</span></h3>
+                    <p>The leading SIM and CNIC verification portal in Pakistan.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#sim-check">SIM Check</a></li>
+                        <li><a href="#cnic-check">CNIC Verify</a></li>
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Disclaimer</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 PakSimInfo. All Rights Reserved. Made with <i class="fas fa-heart"></i> in Pakistan.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">Message here</div>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>
